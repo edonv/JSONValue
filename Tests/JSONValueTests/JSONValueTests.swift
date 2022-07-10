@@ -2,14 +2,11 @@ import XCTest
 @testable import JSONValue
 
 final class JSONValueTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(JSONValue().text, "Hello, World!")
+    func testInitFromString() {
+        XCTAssertEqual("Hello, World!" as JSONValue, "Hello, World!")
     }
 
     static var allTests = [
-        ("testExample", testExample),
+        ("testInitFromString", testInitFromString),
     ]
 }
