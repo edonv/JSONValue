@@ -84,7 +84,11 @@ extension JSONValue: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         
-        if let value = try? container.decode(String.self) {
+        if let value = try? container.decode([String: JSONValue].self) {
+            self = .object(value)
+        } else if let value = try? container.decode([JSONValue].self) {
+            self = .array(value)
+        } else if let value = try? container.decode(String.self) {
             self = .string(value)
         } else if let value = try? container.decode(Int.self) {
             self = .int(value)
@@ -92,11 +96,7 @@ extension JSONValue: Decodable {
             self = .double(value)
         } else if let value = try? container.decode(Bool.self) {
             self = .bool(value)
-        } else if let value = try? container.decode([String: JSONValue].self) {
-            self = .object(value)
-        } else if let value = try? container.decode([JSONValue].self) {
-            self = .array(value)
-        } else if  container.decodeNil() {
+        } else if container.decodeNil() {
             self = .null
         } else {
             throw DecodingError.typeMismatch(JSONValue.self, DecodingError.Context(codingPath: container.codingPath, debugDescription: "Not a JSON"))
