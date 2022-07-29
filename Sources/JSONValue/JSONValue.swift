@@ -150,3 +150,11 @@ extension JSONValue: ExpressibleByDictionaryLiteral {
         self = .object(Dictionary(uniqueKeysWithValues: elements))
     }
 }
+
+extension JSONValue: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        guard let data = try? JSONEncoder().encode(self),
+              let string = String(data: data, encoding: .utf8) else { return String(describing: self) }
+        return string
+    }
+}
