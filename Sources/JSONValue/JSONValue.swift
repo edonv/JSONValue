@@ -39,7 +39,7 @@ public enum JSONValue: Hashable {
         return array[member]
     }
     
-    public func mergingObject(with newObject: JSONValue) throws -> JSONValue {
+    public func mergedObject(with newObject: JSONValue) throws -> JSONValue {
         guard case .object(let old) = self,
               case .object(let new) = newObject else { throw JSONErrors.failedToDecodeObject }
         return JSONValue.object(old.merging(new, uniquingKeysWith: { o, n in o }))
