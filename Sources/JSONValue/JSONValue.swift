@@ -44,6 +44,10 @@ public enum JSONValue: Hashable {
               case .object(let new) = newObject else { throw JSONErrors.failedToDecodeObject }
         return JSONValue.object(old.merging(new, uniquingKeysWith: { o, n in o }))
     }
+    
+    public mutating func mergeObject(with newObject: JSONValue) throws {
+        self = try mergedObject(with: newObject)
+    }
 }
 
 extension JSONValue {
