@@ -10,8 +10,7 @@ import Foundation
 @dynamicMemberLookup
 public enum JSONValue: Hashable {
     case string(String)
-    case int(Int)
-    case double(Double)
+    case number(Double)
     case bool(Bool)
     case object([String: JSONValue])
     case array([JSONValue])

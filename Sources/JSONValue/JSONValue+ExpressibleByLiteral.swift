@@ -9,13 +9,13 @@ import Foundation
 
 extension JSONValue: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: IntegerLiteralType) {
-        self = .int(value)
+        self = .number(Double(value))
     }
 }
 
 extension JSONValue: ExpressibleByFloatLiteral {
     public init(floatLiteral value: FloatLiteralType) {
-        self = .double(Double(value))
+        self = .number(Double(value))
     }
 }
 

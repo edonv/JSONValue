@@ -26,10 +26,8 @@ extension JSONValue: Encodable {
         switch self {
         case .string(let s):
             try container.encode(s)
-        case .int(let i):
-            try container.encode(i)
-        case .double(let d):
-            try container.encode(d)
+        case .number(let n):
+            try container.encode(n)
         case .bool(let b):
             try container.encode(b)
         case .object(let o):
@@ -56,10 +54,8 @@ extension JSONValue: Decodable {
             self = .array(value)
         } else if let value = try? container.decode(String.self) {
             self = .string(value)
-        } else if let value = try? container.decode(Int.self) {
-            self = .int(value)
         } else if let value = try? container.decode(Double.self) {
-            self = .double(value)
+            self = .number(value)
         } else if let value = try? container.decode(Bool.self) {
             self = .bool(value)
         } else if container.decodeNil() {
