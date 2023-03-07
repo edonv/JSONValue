@@ -30,7 +30,4 @@ public enum JSONValue: Hashable {
     
     /// A JSON null value.
     case null
-    
-    /// A an empty JSON object for convenience.
-    public static let emptyObject = JSONValue.object([:])
 }

@@ -8,6 +8,9 @@
 import Foundation
 
 extension JSONValue {
+    /// A an empty JSON object for convenience.
+    public static let emptyObject = JSONValue.object([:])
+    
     var isNil: Bool {
         guard case .null = self else { return false }
         return true
