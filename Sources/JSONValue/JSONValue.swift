@@ -58,13 +58,6 @@ public enum JSONValue: Hashable {
         return dict[key]
     }
     
-    // TODO: subscripts for default value and nilIfNotArray for below
-    
-//    public subscript(_ index: Int) -> JSONValue? {
-//        guard case .array(let array) = self else { return nil }
-//        return array[index]
-//    }
-    
     /// Gets the element for the provided index, if the receiver is a JSON array.
     ///
     /// If the receiver is a JSON array, it will safely access the element for the provided index (returning `nil` if `index` is out of range). If not an array, it will return the original `JSONValue` itself.
