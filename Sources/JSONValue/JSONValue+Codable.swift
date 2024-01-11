@@ -52,12 +52,12 @@ extension JSONValue: Decodable {
             self = .object(value)
         } else if let value = try? container.decode([JSONValue].self) {
             self = .array(value)
-        } else if let value = try? container.decode(String.self) {
-            self = .string(value)
         } else if let value = try? container.decode(Double.self) {
             self = .number(value)
         } else if let value = try? container.decode(Bool.self) {
             self = .bool(value)
+        } else if let value = try? container.decode(String.self) {
+            self = .string(value)
         } else if container.decodeNil() {
             self = .null
         } else {
