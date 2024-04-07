@@ -88,7 +88,7 @@ extension JSONValue {
     /// - Returns: If the receiver is an object, the `key` is present in the object, and the value is converted successfully to the provided type, the converted value. Otherwise, `nil`.
     public subscript<T: JSONConvertible>(_ key: String, as type: T.Type) -> T? {
         guard let value = self[nilIfNotObject: key] else { return nil }
-        return .init(json: value)
+        return T(json: value)
     }
     
     /// Gets the element for the provided index and tries to convert it to the provided convertible type, if the receiver is a JSON array.
@@ -100,6 +100,6 @@ extension JSONValue {
     /// - Returns: If the receiver is an array, the `index` exists, and the element at the `index` is converted successfully to the provided type, the converted element. Otherwise, `nil`.
     public subscript<T: JSONConvertible>(_ index: Int, as type: T.Type) -> T? {
         guard let value = self[safelyNilIfNotArray: index] else { return nil }
-        return .init(json: value)
+        return T(json: value)
     }
 }
