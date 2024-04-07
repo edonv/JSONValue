@@ -76,30 +76,13 @@ extension Optional: JSONConvertible where Wrapped == JSONValue {
 // MARK: - Converting JSONValue
 
 extension JSONValue {
-    private var coreConvertible: any JSONConvertible {
-        switch self {
-        case .string(let string):
-            return string
-        case .number(let double):
-            return double
-        case .bool(let bool):
-            return bool
-        case .object(let dictionary):
-            return dictionary
-        case .array(let array):
-            return array
-        case .null:
-            return JSONValue?.none as any JSONConvertible
-        }
-    }
-    
     public subscript<T: JSONConvertible>(_ key: String, as type: T.Type) -> T? {
-        let value = self[nilIfNotObject: key]?.coreConvertible
-        return value as? T
+        guard let value = self[nilIfNotObject: key] else { return nil }
+        return .init(json: value)
     }
     
     public subscript<T: JSONConvertible>(_ index: Int, as type: T.Type) -> T? {
-        let value = self[safelyNilIfNotArray: index]?.coreConvertible
-        return value as? T
+        guard let value = self[safelyNilIfNotArray: index] else { return nil }
+        return .init(json: value)
     }
 }
