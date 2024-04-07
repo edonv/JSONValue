@@ -54,21 +54,24 @@ extension Dictionary: JSONConvertible where Key == String, Value == JSONValue {
     }
 }
 
-extension Array: JSONConvertible where Element == JSONValue {
-    public var json: JSONValue { .array(self) }
+extension Array: JSONConvertible where Element: JSONConvertible {
+    public var json: JSONValue { .array(self.map(\.json)) }
     public init?(json: JSONValue) {
         guard case .array(let array) = json else { return nil }
-        self = array
+        let elements = array.compactMap(Element.init(json:))
+        guard elements.count == array.count else { return nil }
+        self = elements
+
     }
 }
 
-extension Optional: JSONConvertible where Wrapped == JSONValue {
-    public var json: JSONValue { self ?? .null }
+extension Optional: JSONConvertible where Wrapped: JSONConvertible {
+    public var json: JSONValue { self?.json ?? .null }
     public init(json: JSONValue) {
         if case .null = json {
             self = nil
         } else {
-            self = json
+            self = Wrapped(json: json)
         }
     }
 }
