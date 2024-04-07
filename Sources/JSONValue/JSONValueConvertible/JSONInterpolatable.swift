@@ -108,3 +108,13 @@ extension Float16: JSONInterpolatable {
 //        self.init(coreJSON)
 //    }
 //}
+
+// MARK: Core - Set
+
+extension Set: JSONConvertible where Element: JSONConvertible {
+    public var json: JSONValue { Array(self).json }
+    public init?(json: JSONValue) {
+        guard let array = [Element](json: json) else { return nil }
+        self.init(array)
+    }
+}
