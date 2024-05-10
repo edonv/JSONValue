@@ -8,7 +8,7 @@
 import Foundation
 
 /// A container for untyped JSON values.
-public enum JSONValue: Hashable {
+public enum JSONValue: Sendable, Hashable {
     /// A JSON string value.
     case string(String)
     
