@@ -15,4 +15,14 @@ extension JSONValue {
         guard case .null = self else { return false }
         return true
     }
+    
+    /// A JSON number value (from any integer).
+    public static func int<N: BinaryInteger>(_ value: N) -> JSONValue {
+        .number(Double(value))
+    }
+    
+    /// A JSON number value (from any decimal).
+    public static func float<N: BinaryFloatingPoint>(_ value: N) -> JSONValue {
+        .number(Double(value))
+    }
 }
